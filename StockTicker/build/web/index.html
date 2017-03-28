@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<script>
+    
+    source = new EventSource('stream');
+
+    source.onmessage = function (e) {
+        update = JSON.parse(e.data);
+        price = document.createTextNode(update.price);
+        time = document.createTextNode(update.time);
+
+        body = document.getElementById('updates');                
+        row = body.insertRow(0);
+        row.insertCell().appendChild(time);                
+        row.insertCell().appendChild(price);
+    };
+</script>  
+
+<style>
+table {
+  border-collapse: collapse;
+}
+td, th {
+  width: 4rem;
+  height: 2rem;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+th {
+  background: lightblue;
+  border-color: white;
+}
+body {
+  padding: 2rem;
+}
+</style>
+</head>
+
+<body>
+<table>
+<caption>Stock Price Updates</caption>
+    <thead>
+        <tr>
+            <th>Time</th><th>Price</th>
+        </tr>
+    </thead>
+
+    <tbody id="updates">        
+    </tbody>
+</table>
+</body>
+</html>
